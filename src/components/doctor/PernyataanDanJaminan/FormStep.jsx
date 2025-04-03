@@ -5,7 +5,8 @@ import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import Select from "react-select";
 import PhoneNumberInput from "../InputField/PhoneNumberInput";
-// import { SelectField } from "../InputField/SelectField";
+import axios from "axios";
+import CompanyAddressInput from "../InputField/CompanyAddressInput";
 
 export const FormStep = ({
   step,
@@ -18,6 +19,35 @@ export const FormStep = ({
   errors,
 }) => {
   const [nationalityOptions, setNationalityOptions] = useState([]);
+
+  const [cityOptions, setCityOptions] = useState([]);
+
+  const capitalizeWords = (text) => {
+    return text
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get(
+          "http://185.80.234.165:4022/v1/cities"
+        );
+        const formattedCities = response.data.data.map((city) => ({
+          value: capitalizeWords(city),
+          label: capitalizeWords(city),
+        }));
+        setCityOptions(formattedCities);
+      } catch (error) {
+        console.error("Ошибка при получении городов:", error);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -44,18 +74,6 @@ export const FormStep = ({
       .catch((error) => console.error("Ошибка загрузки:", error));
   }, []);
 
-  const indonesianCityOptions = [
-    { value: "Jakarta", label: "Jakarta" },
-    { value: "Medan", label: "Medan" },
-    { value: "Bandung", label: "Bandung" },
-    { value: "Surabaya", label: "Surabaya" },
-    { value: "Java", label: "Java" },
-    { value: "Bekasi ", label: "Bekasi" },
-    { value: "Palembang", label: "Palembang" },
-    { value: "Semarang", label: "Semarang" },
-    { value: "Sumatra", label: "Sumatra" },
-  ];
-
   const [fileName, setFileName] = useState("");
 
   const loadFile = (event) => {
@@ -66,7 +84,6 @@ export const FormStep = ({
       setFileName(file.name);
     }
   };
-
   switch (step) {
     case 1:
       return (
@@ -74,37 +91,7 @@ export const FormStep = ({
           <div className="col-12 col-md-6 col-xl-4">
             <div className="form-group local-forms">
               <div className="custom-file-input">
-                <label className="local-top">
-                  Company logo <span className="login-danger">*</span>
-                </label>
-                {/* <InputField
-                  required
-                  type="text" // Изменяем тип инпута на "text", чтобы отображать имя файла
-                  id="fileNameInput"
-                  className={`form-control ${
-                  errors.company_name ? "is-invalid" : ""
-                }`}
-                  name="company_logo"
-                  value={formData.company_logo} // Показываем имя файла в инпуте
-                  readOnly // Делаем инпут доступным только для отображения
-                /> */}
-                {/* <input
-                  required
-                  type="file"
-                  id="file"
-                  className={`form-control ${
-                  errors.company_name ? "is-invalid" : ""
-                }`}
-                  name="company_logo"
-                  onChange={handleFileChange}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                  }}
-                /> */}
+                <label className="local-top">Company logo</label>
                 <input
                   type="file"
                   accept="image/*"
@@ -122,14 +109,7 @@ export const FormStep = ({
                   value={fileName || "Choose File"}
                   onClick={() => document.getElementById("file").click()}
                 />
-
-                {/* <label htmlFor="file" className="custom-file-input__label">
-                    Choose File
-                  </label> */}
               </div>
-              {/* <label htmlFor="file" className="upload">
-                  Choose File
-                </label> */}
             </div>
           </div>
           <div className="col-12 col-md-6 col-xl-4">
@@ -147,7 +127,7 @@ export const FormStep = ({
               />
             </div>
           </div>
-          <div className="col-12 col-md-6 col-xl-4">
+          {/* <div className="col-12 col-md-6 col-xl-4">
             <div className="form-group local-forms">
               <InputField
                 required
@@ -159,6 +139,20 @@ export const FormStep = ({
                 value={formData.company_address}
                 onChange={handleChange}
               />
+            </div>
+          </div> */}
+          <div className="col-12 col-md-6 col-xl-4">
+            <div className="form-group local-forms">
+              <label>
+                Company address <span className="login-danger">*</span>
+              </label>
+              <div>
+                <CompanyAddressInput
+                  formData={formData}
+                  handleChange={handleChange}
+                  errors={errors}
+                />
+              </div>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xl-4">
@@ -236,13 +230,13 @@ export const FormStep = ({
               <Select
                 className={`${errors.indonesian_city ? "is-invalid" : ""}`}
                 id="indonesian_city"
-                value={indonesianCityOptions.find(
+                value={cityOptions.find(
                   (option) => option.value === formData.indonesian_city
                 )}
                 onChange={(selectedOption) =>
                   handleSelectChange(selectedOption, "indonesian_city")
                 }
-                options={indonesianCityOptions}
+                options={cityOptions}
                 placeholder=""
                 styles={{
                   control: (baseStyles, state) => ({
@@ -430,6 +424,21 @@ export const FormStep = ({
               />
             </div>
           </div>
+
+          <div className="col-12 col-md-6 col-xl-4">
+            <div className="form-group local-forms">
+              <InputField
+                required
+                className={`form-control ${
+                  errors.second_person_passport_num ? "is-invalid" : ""
+                }`}
+                label="Passport number"
+                name="second_person_passport_num"
+                value={formData.second_person_passport_num}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
           <div className="col-12 col-md-6 col-xl-4">
             <div className="form-group local-forms">
               <label>
@@ -479,20 +488,6 @@ export const FormStep = ({
               />
             </div>
           </div>
-          <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms">
-              <InputField
-                required
-                className={`form-control ${
-                  errors.second_person_passport_num ? "is-invalid" : ""
-                }`}
-                label="Passport number"
-                name="second_person_passport_num"
-                value={formData.second_person_passport_num}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
         </div>
       );
     default:
@@ -509,4 +504,6 @@ FormStep.propTypes = {
   handleFileChange: PropTypes.func,
   isClicked: PropTypes.any,
   errors: PropTypes.any,
+  value: PropTypes.any,
+  onChange: PropTypes.any,
 };

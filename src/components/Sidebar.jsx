@@ -71,8 +71,8 @@ const Sidebar = (props) => {
               onMouseOver={expandMenuOpen}
             >
               <ul>
-                <li className="menu-title">Main</li>
-                <li className="submenu">
+                <li className="menu-title">Documents</li>
+                {/* <li className="submenu">
                   <Link
                     to="#"
                     id="menu-item"
@@ -128,7 +128,7 @@ const Sidebar = (props) => {
                       </Link>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 <li className="submenu">
                   <Link
                     to="#"
@@ -141,7 +141,7 @@ const Sidebar = (props) => {
                     <span className="menu-side">
                       <img src={doctor} alt="" />
                     </span>{" "}
-                    <span> Emigrations </span> <span className="menu-arrow" />
+                    <span> Imigrations </span> <span className="menu-arrow" />
                   </Link>
                   <ul
                     style={{
@@ -164,11 +164,11 @@ const Sidebar = (props) => {
                     <li>
                       <Link
                         className={
-                          props?.activeClassName === "add-doctor"
+                          props?.activeClassName === "surat-jaminan"
                             ? "active"
                             : ""
                         }
-                        to="/add-doctor"
+                        to="/surat-jaminan"
                       >
                         Surat Jaminan
                       </Link>
@@ -188,13 +188,26 @@ const Sidebar = (props) => {
                     <li>
                       <Link
                         className={
-                          props?.activeClassName === "edit-doctor"
+                          props?.activeClassName ===
+                          "surat-undangan-untuk-masa-percobaan"
                             ? "active"
                             : ""
                         }
-                        to="/add-doctor"
+                        to="/surat-undangan-untuk-masa-percobaan"
                       >
-                        Doc 3
+                        Surat Undangan Untuk Masa Percobaan
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className={
+                          props?.activeClassName === "surat-jaminan-company"
+                            ? "active"
+                            : ""
+                        }
+                        to="/surat-jaminan-company"
+                      >
+                        Surat Jaminan Company
                       </Link>
                     </li>
                     {/* <li>
@@ -223,7 +236,7 @@ const Sidebar = (props) => {
                     </li> */}
                   </ul>
                 </li>
-                <li className="submenu">
+                {/* <li className="submenu">
                   <Link
                     to="#"
                     id="menu-item2"
@@ -1301,16 +1314,16 @@ const Sidebar = (props) => {
                       </Link>
                     </li>
                   </ul>
-                </li>
+                </li> */}
               </ul>
-              <div className="logout-btn">
+              {/* <div className="logout-btn">
                 <Link to="/login">
                   <span className="menu-side">
                     <img src={logout} alt="" />
                   </span>{" "}
                   <span>Logout</span>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </Scrollbars>

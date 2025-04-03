@@ -323,7 +323,7 @@ table.table td h2 span {
   height: 24px;
   margin: auto;
   position: absolute;
-  right: 25px;
+  right: 10px;
   top: 0;
   width: 24px;
   cursor: pointer;
@@ -469,8 +469,8 @@ table.table td h2 span {
 .btn-primary.active,
 .btn-primary:active,
 .open > .dropdown-toggle.btn-primary {
-  background-color: #00d3c7;
-  border: 1px solid #00d3c7;
+  background-color: #2e37a4;
+  /* border: 1px solid #00d3c7; */
   color: #fff;
 }
 .btn-primary.active.focus,
@@ -753,7 +753,8 @@ textarea.form-control {
 .header .header-left {
   float: left;
   height: 70px;
-  padding: 0 20px;
+  /* padding: 0 20px; */
+  margin: 0 20px;
   position: relative;
   text-align: center;
   width: 220px;
@@ -6623,7 +6624,7 @@ a.status-grey {
 .doctor-submit .cancel-form {
   background: rgba(51, 52, 72, 0.05);
   color: #333448;
-  padding-right: 60px;
+  /* padding-right: 60px; */
 }
 .doctor-submit .cancel-form:hover {
   background: #2e37a4;
@@ -11321,7 +11322,6 @@ tr.ant-table-row.ant-table-row-level-0.ant-table-row-selected,
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
   padding: 10px;
   gap: 8px;
@@ -11373,4 +11373,21 @@ tr.ant-table-row.ant-table-row-level-0.ant-table-row-selected,
     flex-direction: row;
     gap: 25px;
   }
+
+  .page-header {
+    margin-bottom: 15px;
+  }
+
+  .header .header-left {
+    margin-right: 20px;
+    margin-left: 0;
+  }
+}
+
+.form-control.is-invalid {
+  background-image: none !important;
+  background-repeat: unset !important;
+  background-position: unset !important;
+  background-size: unset !important;
+  padding-right: unset !important;
 }

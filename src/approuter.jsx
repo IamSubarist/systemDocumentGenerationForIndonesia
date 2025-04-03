@@ -24,8 +24,8 @@ import Assests from "./components/assests/Assests";
 import AddAsset from "./components/assests/AddAsset";
 //Doctor
 import DoctorList from "./components/doctor/DoctorList";
-import AddDoctor from "./components/doctor/AddDoctor";
-import PernyataanDanJaminan from "./components/doctor/PernyataanDanJaminan";
+import SuratJaminan from "./components/doctor/SuratJaminan/SuratJaminan";
+import PernyataanDanJaminan from "./components/doctor/PernyataanDanJaminan/PernyataanDanJaminan";
 import EditDoctor from "./components/doctor/EditDoctor";
 import DoctorProfile from "./components/doctor/DoctorProfile";
 //Patients...
@@ -126,6 +126,8 @@ import Edit_Payment from "./components/accounts/Edit_Payment";
 import Payslip from "./components/Payroll/Payslip";
 import Setting from "./components/settings/Setting";
 import GalleryImage from "./components/pages/Gallery/Gallery";
+import SuratUndanganUntukMasaPercobaan from "./components/doctor/SuratUndanganUntukMasaPercobaan/SuratUndanganUntukMasaPercobaan";
+import SuratJaminanCompany from "./components/doctor/SuratJaminanCompany/SuratJaminanCompany";
 
 //Accounts
 const Approuter = () => {
@@ -135,7 +137,7 @@ const Approuter = () => {
     <>
       <BrowserRouter basename="/">
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<SuratJaminan />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/signup" element={<Signup />} />
@@ -176,10 +178,18 @@ const Approuter = () => {
           <Route path="/edit-assets" element={<Edit_Assets />} />
           {/* Doctor  */}
           <Route path="/doctorlist" element={<DoctorList />} />
-          <Route path="/add-doctor" element={<AddDoctor />} />
+          <Route path="/surat-jaminan" element={<SuratJaminan />} />
           <Route
             path="/pernyataan-dan-jaminan"
             element={<PernyataanDanJaminan />}
+          />
+          <Route
+            path="/surat-undangan-untuk-masa-percobaan"
+            element={<SuratUndanganUntukMasaPercobaan />}
+          />
+          <Route
+            path="/surat-jaminan-company"
+            element={<SuratJaminanCompany />}
           />
           <Route path="/editdoctor" element={<EditDoctor />} />
           <Route path="/doctorprofile" element={<DoctorProfile />} />

@@ -3,25 +3,27 @@
 import React, { Component } from "react";
 import config from "config";
 
-import { Route, Redirect, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Route,
+  Redirect,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 // import Header from "./components/header";
 import Home from "./components/home";
 import Login from "./components/pages/login";
-
+import AddDoctor from "./components/doctor/SuratJaminan/SuratJaminan";
 
 const AppContainer = function (props) {
-
-
   return (
-    <Router basename= "/">
+    <Router basename="/">
       <>
         <Route render={(props) => <Header {...props} />} />
         <Routes>
-
           {/* <Route index element={<Login />} /> */}
-          <Route  path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route  path="/home" component={Home} />
+          <Route path="/" element={<AddDoctor />} />
+          {/* <Route path="/login" element={<Login />} />
+          <Route path="/home" component={Home} /> */}
         </Routes>
         <Route render={(props) => <Footer {...props} />} />
       </>

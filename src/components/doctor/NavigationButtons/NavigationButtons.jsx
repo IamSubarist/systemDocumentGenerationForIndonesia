@@ -53,7 +53,7 @@ export const NavigationButtons = ({
             className="btn btn-primary submit-form"
             onClick={handleSubmitClick}
           >
-            Submit
+            Generate
           </button>
         ) : (
           <button
