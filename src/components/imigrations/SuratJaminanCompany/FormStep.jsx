@@ -1,11 +1,8 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { InputField } from "../InputField/InputField";
-import { DatePicker } from "antd";
-import dayjs from "dayjs";
 import Select from "react-select";
 import PhoneNumberInput from "../InputField/PhoneNumberInput";
-import axios from "axios";
 import CompanyAddressInput from "../InputField/CompanyAddressInput";
 
 export const FormStep = ({
@@ -15,39 +12,9 @@ export const FormStep = ({
   handleChange,
   handleSelectChange,
   handleFileChange,
-  isClicked,
   errors,
 }) => {
   const [nationalityOptions, setNationalityOptions] = useState([]);
-
-  const [cityOptions, setCityOptions] = useState([]);
-
-  const capitalizeWords = (text) => {
-    return text
-      .toLowerCase()
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  };
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await axios.get(
-          "http://185.80.234.165:4022/v1/cities"
-        );
-        const formattedCities = response.data.data.map((city) => ({
-          value: capitalizeWords(city),
-          label: capitalizeWords(city),
-        }));
-        setCityOptions(formattedCities);
-      } catch (error) {
-        console.error("Ошибка при получении городов:", error);
-      }
-    };
-
-    fetchCities();
-  }, []);
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -188,82 +155,40 @@ export const FormStep = ({
               <InputField
                 required
                 className={`form-control ${
-                  errors.request_type ? "is-invalid" : ""
+                  errors.company_nib ? "is-invalid" : ""
                 }`}
-                label="Type of request"
-                name="request_type"
-                value={formData.request_type}
+                label="Company NIB"
+                name="company_nib"
+                value={formData.company_nib}
                 onChange={handleChange}
               />
             </div>
           </div>
           <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms cal-icon">
-              <label>
-                Document date <span className="login-danger">*</span>
-              </label>
-              <DatePicker
-                placeholder=""
-                className={`form-control datetimepicker ${
-                  errors.date ? "is-invalid" : ""
+            <div className="form-group local-forms">
+              <InputField
+                required
+                className={`form-control ${
+                  errors.first_person_name ? "is-invalid" : ""
                 }`}
-                name="date"
-                label="Document date"
-                value={formData.date ? dayjs(formData.date) : null}
-                onChange={(date, dateString) =>
-                  handleChange(null, date, dateString, "date")
-                }
-                suffixIcon={null}
-                style={{
-                  borderColor: isClicked
-                    ? "#2E37A4"
-                    : "2px solid rgba(46, 55, 164, 0.1)",
-                }}
+                label="Person's full name"
+                name="first_person_name"
+                value={formData.first_person_name}
+                onChange={handleChange}
               />
             </div>
           </div>
           <div className="col-12 col-md-6 col-xl-4">
             <div className="form-group local-forms">
-              <label>
-                Indonesian city <span className="login-danger">*</span>
-              </label>
-              <Select
-                className={`${errors.indonesian_city ? "is-invalid" : ""}`}
-                id="indonesian_city"
-                value={cityOptions.find(
-                  (option) => option.value === formData.indonesian_city
-                )}
-                onChange={(selectedOption) =>
-                  handleSelectChange(selectedOption, "indonesian_city")
-                }
-                options={cityOptions}
-                placeholder=""
-                styles={{
-                  control: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderColor: state.isFocused
-                      ? "none"
-                      : "2px solid rgba(46, 55, 164, 0.1);",
-                    boxShadow: state.isFocused ? "0 0 0 1px #2e37a4" : "none",
-                    "&:hover": {
-                      borderColor: state.isFocused
-                        ? "none"
-                        : "2px solid rgba(46, 55, 164, 0.1)",
-                    },
-                    borderRadius: "10px",
-                    fontSize: "14px",
-                    minHeight: "45px",
-                  }),
-                  dropdownIndicator: (base, state) => ({
-                    ...base,
-                    transform: state.selectProps.menuIsOpen
-                      ? "rotate(-180deg)"
-                      : "rotate(0)",
-                    transition: "250ms",
-                    width: "35px",
-                    height: "35px",
-                  }),
-                }}
+              <InputField
+                required
+                className={`form-control ${
+                  errors.first_person_position ? "is-invalid" : ""
+                }`}
+                label="Person's post"
+                name="first_person_position"
+                value={formData.first_person_position}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -277,150 +202,12 @@ export const FormStep = ({
               <InputField
                 required
                 className={`form-control ${
-                  errors.first_person_name ? "is-invalid" : ""
-                }`}
-                label="Applicant's full name"
-                name="first_person_name"
-                value={formData.first_person_name}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms">
-              <InputField
-                required
-                className={`form-control ${
-                  errors.first_person_birthplace ? "is-invalid" : ""
-                }`}
-                label="Place of birth"
-                name="first_person_birthplace"
-                value={formData.first_person_birthplace}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms cal-icon">
-              <label>
-                Date of birth <span className="login-danger">*</span>
-              </label>
-              <DatePicker
-                placeholder=""
-                className={`form-control datetimepicker ${
-                  errors.first_person_birthdate ? "is-invalid" : ""
-                }`}
-                name="first_person_birthdate"
-                label="Date of birth"
-                value={
-                  formData.first_person_birthdate
-                    ? dayjs(formData.first_person_birthdate)
-                    : null
-                }
-                onChange={(date, dateString) =>
-                  handleChange(null, date, dateString, "first_person_birthdate")
-                }
-                suffixIcon={null}
-                style={{
-                  borderColor: isClicked
-                    ? "#2E37A4"
-                    : "2px solid rgba(46, 55, 164, 0.1)",
-                }}
-              />
-            </div>
-          </div>
-          <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms">
-              <InputField
-                required
-                className={`form-control ${
-                  errors.first_person_registration_address ? "is-invalid" : ""
-                }`}
-                label="Registration address"
-                name="first_person_registration_address"
-                value={formData.first_person_registration_address}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms">
-              <InputField
-                required
-                className={`form-control ${
-                  errors.first_person_NIK ? "is-invalid" : ""
-                }`}
-                label="NIK"
-                name="first_person_NIK"
-                value={formData.first_person_NIK}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-        </div>
-      );
-    case 3:
-      return (
-        <div className="row">
-          <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms">
-              <InputField
-                required
-                className={`form-control ${
                   errors.second_person_name ? "is-invalid" : ""
                 }`}
-                label="Employee's full name"
+                label="Person's full name"
                 name="second_person_name"
                 value={formData.second_person_name}
                 onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms">
-              <InputField
-                required
-                className={`form-control ${
-                  errors.second_person_birthplace ? "is-invalid" : ""
-                }`}
-                label="Place of birth"
-                name="second_person_birthplace"
-                value={formData.second_person_birthplace}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="col-12 col-md-6 col-xl-4">
-            <div className="form-group local-forms cal-icon">
-              <label>
-                Date of birth <span className="login-danger">*</span>
-              </label>
-              <DatePicker
-                placeholder=""
-                className={`form-control datetimepicker ${
-                  errors.second_person_birthdate ? "is-invalid" : ""
-                }`}
-                name="second_person_birthdate"
-                label="Date of birth"
-                value={
-                  formData.second_person_birthdate
-                    ? dayjs(formData.second_person_birthdate)
-                    : null
-                }
-                onChange={(date, dateString) =>
-                  handleChange(
-                    null,
-                    date,
-                    dateString,
-                    "second_person_birthdate"
-                  )
-                }
-                suffixIcon={null}
-                style={{
-                  borderColor: isClicked
-                    ? "#2E37A4"
-                    : "2px solid rgba(46, 55, 164, 0.1)",
-                }}
               />
             </div>
           </div>
@@ -441,12 +228,42 @@ export const FormStep = ({
           </div>
           <div className="col-12 col-md-6 col-xl-4">
             <div className="form-group local-forms">
+              <InputField
+                required
+                className={`form-control ${
+                  errors.second_person_reason_to_apply ? "is-invalid" : ""
+                }`}
+                label="Reason to apply"
+                name="second_person_reason_to_apply"
+                value={formData.second_person_reason_to_apply}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-xl-4">
+            <div className="form-group local-forms">
+              <InputField
+                required
+                className={`form-control ${
+                  errors.visa_type ? "is-invalid" : ""
+                }`}
+                label="Visa type"
+                name="visa_type"
+                value={formData.visa_type}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-xl-4">
+            <div className="form-group local-forms">
               <label>
                 Citizenship <span className="login-danger">*</span>
               </label>
               <Select
-                className={`${errors.nationality ? "is-invalid" : ""}`}
-                id="nationality"
+                className={`${
+                  errors.second_person_nationality ? "is-invalid" : ""
+                }`}
+                id="second_person_nationality"
                 value={nationalityOptions.find(
                   (option) =>
                     option.value === formData.second_person_nationality

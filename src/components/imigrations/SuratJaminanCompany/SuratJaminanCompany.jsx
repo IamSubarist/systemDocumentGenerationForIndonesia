@@ -58,10 +58,10 @@ const SuratJaminanCompany = () => {
     ],
     2: [
       "second_person_name",
-      "second_person_nationality",
       "second_person_passport_num",
       "second_person_reason_to_apply",
       "visa_type",
+      "second_person_nationality",
     ],
   };
 

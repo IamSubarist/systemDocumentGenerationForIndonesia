@@ -445,8 +445,10 @@ export const FormStep = ({
                 Citizenship <span className="login-danger">*</span>
               </label>
               <Select
-                className={`${errors.nationality ? "is-invalid" : ""}`}
-                id="nationality"
+                className={`${
+                  errors.second_person_nationality ? "is-invalid" : ""
+                }`}
+                id="second_person_nationality"
                 value={nationalityOptions.find(
                   (option) =>
                     option.value === formData.second_person_nationality

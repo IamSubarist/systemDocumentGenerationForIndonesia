@@ -24,8 +24,8 @@ import Assests from "./components/assests/Assests";
 import AddAsset from "./components/assests/AddAsset";
 //Doctor
 import DoctorList from "./components/doctor/DoctorList";
-import SuratJaminan from "./components/doctor/SuratJaminan/SuratJaminan";
-import PernyataanDanJaminan from "./components/doctor/PernyataanDanJaminan/PernyataanDanJaminan";
+import SuratJaminan from "./components/imigrations/SuratJaminan/SuratJaminan";
+import PernyataanDanJaminan from "./components/imigrations/PernyataanDanJaminan/PernyataanDanJaminan";
 import EditDoctor from "./components/doctor/EditDoctor";
 import DoctorProfile from "./components/doctor/DoctorProfile";
 //Patients...
@@ -126,8 +126,8 @@ import Edit_Payment from "./components/accounts/Edit_Payment";
 import Payslip from "./components/Payroll/Payslip";
 import Setting from "./components/settings/Setting";
 import GalleryImage from "./components/pages/Gallery/Gallery";
-import SuratUndanganUntukMasaPercobaan from "./components/doctor/SuratUndanganUntukMasaPercobaan/SuratUndanganUntukMasaPercobaan";
-import SuratJaminanCompany from "./components/doctor/SuratJaminanCompany/SuratJaminanCompany";
+import SuratUndanganUntukMasaPercobaan from "./components/imigrations/SuratUndanganUntukMasaPercobaan/SuratUndanganUntukMasaPercobaan";
+import SuratJaminanCompany from "./components/imigrations/SuratJaminanCompany/SuratJaminanCompany";
 
 //Accounts
 const Approuter = () => {

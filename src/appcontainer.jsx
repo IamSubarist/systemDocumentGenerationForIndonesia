@@ -12,7 +12,7 @@ import {
 // import Header from "./components/header";
 import Home from "./components/home";
 import Login from "./components/pages/login";
-import AddDoctor from "./components/doctor/SuratJaminan/SuratJaminan";
+import AddDoctor from "./components/imigrations/SuratJaminan/SuratJaminan";
 
 const AppContainer = function (props) {
   return (
